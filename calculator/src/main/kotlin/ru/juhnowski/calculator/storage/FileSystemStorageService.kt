@@ -51,12 +51,11 @@ constructor(properties: StorageProperties) : StorageService {
     override fun loadAll(): Stream<Path> {
         try {
             return Files.walk(this.rootLocation, 1)
-                    .filter { path -> path != this.rootLocation }
-                    .map(Function<Path, Path> { this.rootLocation.relativize(it) })
-        } catch (e: IOException) {
-            throw StorageException("Failed to read stored files", e)
+                    .filter{path -> path != this.rootLocation}
+                    .map { path -> this.rootLocation.relativize(path)  }
+        } catch (e: Exception) {
+            throw StorageException("Failed to read stored files ", e)
         }
-
     }
 
     override fun load(filename: String): Path {

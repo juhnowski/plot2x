@@ -22,12 +22,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-/**
- * Simple implementation of plot. Minimal features, no dependencies besides standard libraries.
- * Options are self-descriptive, see also samples.
- *
- * @author Yuriy Guskov
- */
 public class Plot {
 
     public enum Line { NONE, SOLID, DASHED };

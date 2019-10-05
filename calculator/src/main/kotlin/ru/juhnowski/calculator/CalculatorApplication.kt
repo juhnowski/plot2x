@@ -15,15 +15,14 @@ import ru.juhnowski.calculator.storage.StorageService
 class CalculatorApplication {
 
     @Bean
-    internal fun init(storageService: StorageService): CommandLineRunner {
-        return { args ->
+    internal fun init(storageService: StorageService) = CommandLineRunner {
             storageService.deleteAll()
             storageService.init()
-        }
+
     }
 
     companion object {
-
+        @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
             SpringApplication.run(CalculatorApplication::class.java, *args)
