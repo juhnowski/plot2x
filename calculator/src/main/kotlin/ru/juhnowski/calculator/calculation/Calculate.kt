@@ -13,7 +13,7 @@ class Calculate {
 
     fun insertCharacterForEveryNDistance(distance: Int, original: String, c: Char): String {
         val sb = StringBuilder()
-        val charArrayOfOriginal = original.toCharArray()
+        val charArrayOfOriginal = original.trim().toCharArray();
         for (ch in charArrayOfOriginal.indices) {
             if (ch % distance == 0)
                 sb.append(c).append(charArrayOfOriginal[ch])
@@ -31,16 +31,22 @@ class Calculate {
         val formulaUrl = "/formula_${hash}";
         val plotUrl = "/plot_${hash}";
 
-       // Plot.data().xy(1.0, 2.0).xy(3.0, 4.0)
-
         val plot = Plot.plot(null);
-        plot.series(null, plot.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
+
+        val data = Evaluate.getData(expr);
+
+        val x = ArrayList<Double>();
+        val y = ArrayList<Double>();
+        for ( k in data.keys.sorted()){
+            x.add(k);
+            y.add(data.get(k)!!);
+        }
+
+
+        plot.series(null, plot.data().xy(x,y), null)// setting data
         plot.save("upload-dir$plotUrl", "png")
 
-        val formula = Formula.formula(null).series(null, Formula.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
-
-        val result = insertCharacterForEveryNDistance(2, "javastring", ' ')
-        println(result)
+        val formula = Formula.formula(null).series(null, Formula.data().xy(1.0, 2.0).xy(3.0, 4.0), null)
 
         val exprWithSpace =insertCharacterForEveryNDistance(1, expr, ' ');
 
@@ -166,4 +172,5 @@ class Calculate {
 
         return stringWriter.toString();
     }
+
 }
