@@ -121,7 +121,7 @@ fun stub():CachedFunction{
     }
 
     val responseXML = stringWriter.toString()
-    val cachedFunction = CachedFunction(response=responseXML,pod1Title = "$pod1.title", pod2Title="$pod2.title");
+    val cachedFunction = CachedFunction(response=responseXML,pod1Title = "${pod1.title.toString()}", pod2Title="${pod2.title.toString()}");
     FUNCTIONS.put(0,cachedFunction);
 
     return cachedFunction;
