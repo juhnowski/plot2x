@@ -23,7 +23,7 @@ Query
  http://api.wolframalpha.com/v2/query?input="plot 2x"&appid=K28L54-3UGRQA7TL7
 
 Response:
-This XML file does not appear to have any style information associated with it. The document tree is shown below.
+
 <queryresult success="true" error="false" numpods="2" datatypes="Plot" timedout="" timedoutpods="" timing="0.627" parsetiming="0.246" parsetimedout="false" recalculate="" id="MSPa1356244hb1999h19b3f0000010ahfh0ha9d50891" host="https://www4d.wolframalpha.com" server="32" related="https://www4d.wolframalpha.com/api/v1/relatedQueries.jsp?id=MSPa1357244hb1999h19b3f0000026c853b76916bihc3331039829427880662" version="2.6">
 <pod title="Input interpretation" scanner="Identity" id="Input" position="100" error="false" numsubpods="1">
 <subpod title="">

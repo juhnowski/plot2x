@@ -31,7 +31,7 @@ data class Greeting(val id: Long, val content: String)
 data class Result(val expr:String, val result:String)
 
 fun calculate(expr:String):String{
-    val result = eval
-    return result;
+
+    return expr;
 }
 

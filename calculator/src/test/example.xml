@@ -1,0 +1,74 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<queryresult
+        success="true"
+        error="false"
+        numpods="2"
+        datatypes="Plot"
+        timedout=""
+        timedoutpods=""
+        timing="0.627"
+        parsetiming="0.246"
+        parsetimedout="false"
+        recalculate=""
+        id="MSPa1356244hb1999h19b3f0000010ahfh0ha9d50891"
+        host="https://www4d.wolframalpha.com"
+        server="32"
+        related="https://www4d.wolframalpha.com/api/v1/relatedQueries.jsp?id=MSPa1357244hb1999h19b3f0000026c853b76916bihc3331039829427880662"
+        version="2.6">
+
+    <pod
+            title="Input interpretation"
+            scanner="Identity"
+            id="Input"
+            position="100"
+            error="false"
+            numsubpods="1">
+
+            <subpod title="">
+                <img
+                        src="https://www4d.wolframalpha.com/Calculate/MSP/MSP1358244hb1999h19b3f0000033d4ii3i6e959i03?MSPStoreType=image/gif&amp;s=32"
+                        alt="plot | 2 x"
+                        title="plot | 2 x"
+                        width="103"
+                        height="32"
+                        type="Grid"
+                        themes="1,2,3,4,5,6,7,8,9,10,11,12"
+                        colorinvertable="true"/>
+                <plaintext>plot | 2 x</plaintext>
+            </subpod>
+
+            <expressiontypes>
+                <expressiontype name="Grid"/>
+            </expressiontypes>
+    </pod>
+
+    <pod
+            title="Plot"
+            scanner="Plot"
+            id="Plot"
+            position="200"
+            error="false"
+            numsubpods="1">
+
+            <subpod title="">
+                <img src="https://www4d.wolframalpha.com/Calculate/MSP/MSP1359244hb1999h19b3f00000402b062hi2fb1i35?MSPStoreType=image/gif&amp;s=32"
+                     alt=""
+                     title=""
+                     width="429"
+                     height="215"
+                     type="2DMathPlot_1"
+                     themes="1,2,3,4,5,6,7,8,9,10,11,12"
+                     colorinvertable="true"/>
+                <plaintext/>
+            </subpod>
+
+            <expressiontypes>
+                <expressiontype name="2DMathPlot"/>
+            </expressiontypes>
+    </pod>
+
+</queryresult>
+
+
+
