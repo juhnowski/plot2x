@@ -1,6 +1,7 @@
 package ru.juhnowski.calculator.calculation
 
 import ru.juhnowski.calculator.model.*
+import ru.juhnowski.calculator.plotter.Formula
 import ru.juhnowski.calculator.plotter.Plot
 import java.io.StringWriter
 import javax.xml.bind.JAXBContext
@@ -11,6 +12,10 @@ fun stub():String{
     //generate stub plot
     val plot = Plot.plot(null).series(null, Plot.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
     plot.save("upload-dir/sample_minimal", "png")
+
+    val formula = Formula.formula(null).series(null, Formula.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
+    formula.formulaText = "f ( x ) = x + 1"
+    formula.save("upload-dir/formula_minimal", "png")
 
     val jaxbContext = JAXBContext.newInstance(Queryresult::class.java)
     val marshaller = jaxbContext.createMarshaller()
@@ -45,7 +50,7 @@ fun stub():String{
 
     val subpod1 = Subpod();
     val img1 = Img();
-    img1.src="http://localhost:8080/sample_minimal.png";
+    img1.src="http://localhost:8080/formula_minimal.png";
     img1.alt="plot | 2 x";
     img1.title="plot | 2 x";
     img1.width=103;
@@ -81,7 +86,7 @@ fun stub():String{
     subpod2.title = "";
 
     val img2 = Img();
-    img2.src="https://www4d.wolframalpha.com/Calculate/MSP/MSP1359244hb1999h19b3f00000402b062hi2fb1i35?MSPStoreType=image/gif&amp;s=32";
+    img2.src="http://localhost:8080/sample_minimal.png";
     img2.alt="";
     img2.title="";
     img2.width=429;
