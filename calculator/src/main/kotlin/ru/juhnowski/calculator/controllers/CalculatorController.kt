@@ -78,9 +78,6 @@ constructor(private val storageService: StorageService) {
             plotUrl = "/plot_${hash}.png";
         }
 
-        val pod1Title = calc.query.pod!![0].title;
-        val pod2Title = calc.query.pod!![1].title;
-
         return """
             <!DOCTYPE HTML>
             <html>
@@ -92,13 +89,13 @@ constructor(private val storageService: StorageService) {
                 <table>
                     <tr>
                         <td>
-                            <h1>$pod1Title</h1>
+                            <h1>${calc.pod1Title.toString()}</h1>
                             <img src='${formulaUrl}'>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h1>$pod2Title</h1>
+                            <h1>${calc.pod2Title.toString()}</h1>
                             <img src='${plotUrl}'>
                         </td> 
                     </tr>

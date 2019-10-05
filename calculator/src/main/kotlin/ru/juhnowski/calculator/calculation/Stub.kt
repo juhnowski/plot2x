@@ -1,5 +1,7 @@
 package ru.juhnowski.calculator.calculation
 
+import ru.juhnowski.calculator.cache.Cache.FUNCTIONS
+import ru.juhnowski.calculator.cache.CachedFunction
 import ru.juhnowski.calculator.model.*
 import ru.juhnowski.calculator.plotter.Formula
 import ru.juhnowski.calculator.plotter.Plot
@@ -7,8 +9,11 @@ import java.io.StringWriter
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.Marshaller
 
-fun stub():String{
+fun stub():CachedFunction{
 
+    if (FUNCTIONS.containsKey(0)){
+        return FUNCTIONS.get(0)!!;
+    }
     //generate stub plot
     val plot = Plot.plot(null);
     plot.series(null, plot.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
@@ -115,5 +120,9 @@ fun stub():String{
         marshaller.marshal(query, stringWriter)
     }
 
-    return stringWriter.toString();
+    val responseXML = stringWriter.toString()
+    val cachedFunction = CachedFunction(response=responseXML,pod1Title = "$pod1.title", pod2Title="$pod2.title");
+    FUNCTIONS.put(0,cachedFunction);
+
+    return cachedFunction;
 }

@@ -1,5 +1,7 @@
 package ru.juhnowski.calculator.calculation
 
+import ru.juhnowski.calculator.cache.Cache.FUNCTIONS
+import ru.juhnowski.calculator.cache.CachedFunction
 import ru.juhnowski.calculator.model.*
 import ru.juhnowski.calculator.plotter.Formula
 import ru.juhnowski.calculator.plotter.Plot
@@ -9,7 +11,9 @@ import javax.xml.bind.Marshaller
 
 class Calculate {
 
-    public val query = Queryresult();
+    val query = Queryresult();
+    var pod1Title:String ="";
+    var pod2Title:String ="";
 
     fun insertCharacterForEveryNDistance(distance: Int, original: String, c: Char): String {
         val sb = StringBuilder()
@@ -24,7 +28,22 @@ class Calculate {
     }
 
     fun calculate(expr: String): String {
-        if (expr.length == 0) return stub();
+        val h = expr.hashCode();
+
+        if (FUNCTIONS.containsKey(h)){
+            val cachedFunction = FUNCTIONS.get(h)!!
+            pod1Title = cachedFunction.pod1Title
+            pod2Title = cachedFunction.pod2Title
+            println("find pod1Title=$pod1Title")
+            return cachedFunction.response;
+        }
+
+        if (expr.length == 0) {
+            val cf = stub();
+            pod1Title = cf.pod1Title;
+            pod2Title = cf.pod2Title;
+            return cf.response;
+        };
 
         val hash = expr.hashCode();
 
@@ -170,7 +189,14 @@ class Calculate {
             marshaller.marshal(query, stringWriter)
         }
 
-        return stringWriter.toString();
+        val responseXML = stringWriter.toString()
+        pod1Title = "${pod1.title.toString()}"
+        pod2Title = "${pod2.title.toString()}"
+        println("first pod1Title=$pod1Title")
+        val cachedFunction = CachedFunction(response=responseXML,pod1Title = pod1Title, pod2Title=pod2Title);
+        FUNCTIONS.put(h,cachedFunction);
+
+        return responseXML;
     }
 
 }
