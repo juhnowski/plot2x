@@ -4,27 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
-import org.springframework.web.servlet.mvc.support.RedirectAttributes
-import ru.juhnowski.calculator.calculation.calculate
-import ru.juhnowski.calculator.model.*
+import ru.juhnowski.calculator.calculation.Calculate
 import ru.juhnowski.calculator.storage.StorageFileNotFoundException
 import ru.juhnowski.calculator.storage.StorageService
-import java.io.StringWriter
 import java.util.concurrent.atomic.AtomicLong
-import javax.xml.bind.JAXBContext
-import javax.xml.bind.Marshaller
-import java.awt.PageAttributes
-import java.io.File
-import java.io.IOException
-import java.util.stream.Collector
-import java.util.stream.Collectors
-import java.util.stream.Collectors.toList
-import javax.xml.ws.Response
-import kotlin.streams.toList
+
 
 
 @RestController
@@ -40,7 +25,8 @@ constructor(private val storageService: StorageService) {
 
     @GetMapping("/calc")
     fun calc(@RequestParam(value = "expr",defaultValue = "") expr: String): String {
-        return calculate(expr)
+        val  calc = Calculate();
+        return calc.calculate(expr);
     }
 
 
@@ -53,6 +39,78 @@ constructor(private val storageService: StorageService) {
                 "attachment; filename=\"" + file.filename + "\"").body(file)
     }
 
+    @GetMapping("/")
+    fun calc(): String {
+        return """
+            <!DOCTYPE HTML>
+            <html>
+             <head>
+              <meta charset="utf-8">
+              <title>Calculate</title>
+             </head>
+             <body>
+            
+             <form action="/calc_test">
+               <p><b>f(x)=</b>
+               <input type="text" size="40" name="expr">
+              </p>
+              <p><input type="submit"></p>
+             </form>
+            
+             </body>
+            </html>
+        """.trimIndent()
+    }
+
+    @GetMapping("/calc_test")
+    fun calc_test(@RequestParam(value = "expr",defaultValue = "") expr: String): String {
+        val  calc = Calculate();
+        calc.calculate(expr)
+        var formulaUrl: String;
+        var plotUrl:String;
+
+        if (expr=="") {
+            formulaUrl = "/formula_minimal.png";
+            plotUrl = "/sample_minimal.png";
+        } else {
+            val hash = expr.hashCode();
+            formulaUrl = "/formula_${hash}.png";
+            plotUrl = "/plot_${hash}.png";
+        }
+
+        val pod1Title = calc.query.pod!![0].title;
+        val pod2Title = calc.query.pod!![1].title;
+
+        return """
+            <!DOCTYPE HTML>
+            <html>
+             <head>
+              <meta charset="utf-8">
+              <title>Calculate</title>
+             </head>
+             <body>
+                <table>
+                    <tr>
+                        <td>
+                            <h1>$pod1Title</h1>
+                            <img src='${formulaUrl}'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1>$pod2Title</h1>
+                            <img src='${plotUrl}'>
+                        </td> 
+                    </tr>
+                </table>
+             <form action="/">
+              <p><input type="submit" value="Ok"></p>
+             </form>
+            
+             </body>
+            </html>
+        """.trimIndent()
+    }
 
     @ExceptionHandler(StorageFileNotFoundException::class)
     fun handleStorageFileNotFound(exc: StorageFileNotFoundException): ResponseEntity<*> {

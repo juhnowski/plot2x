@@ -26,7 +26,8 @@ class CalculatorApplicationTests {
 
 	@Test
 	fun testPlot(){
-		val plot = Plot.plot(null).series(null, Plot.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
+		val plot = Plot.plot(null);
+		plot.series(null, plot.data().xy(1.0, 2.0).xy(3.0, 4.0), null)// setting data
 		plot.save("upload-dir/sample_minimal", "png")
 	}
 

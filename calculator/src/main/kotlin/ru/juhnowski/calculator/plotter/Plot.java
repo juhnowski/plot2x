@@ -722,11 +722,11 @@ public class Plot {
 
     }
 
-    public static Data data() {
+    public Data data() {
         return new Data();
     }
 
-    public static class Data {
+    public class Data {
 
         private double[] x1;
         private double[] y1;
