@@ -1,5 +1,6 @@
 package ru.juhnowski.calculator.controllers
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpHeaders
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong
 @RestController
 class CalculatorController @Autowired
 constructor(private val storageService: StorageService) {
-
+    private val logger = LoggerFactory.getLogger(javaClass)
     val counter = AtomicLong()
 
     @GetMapping("/alive")
@@ -25,6 +26,7 @@ constructor(private val storageService: StorageService) {
 
     @GetMapping("/calc")
     fun calc(@RequestParam(value = "expr",defaultValue = "") expr: String): String {
+        logger.info("GET /calc expr=$expr")
         val  calc = Calculate();
         return calc.calculate(expr);
     }
@@ -33,7 +35,7 @@ constructor(private val storageService: StorageService) {
     @GetMapping("/{filename:.+}")
     @ResponseBody
     fun serveFile(@PathVariable filename: String): ResponseEntity<Resource> {
-
+        logger.info("GET /{filename:.+} filename=$filename")
         val file = storageService.loadAsResource(filename)
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.filename + "\"").body(file)
@@ -41,6 +43,7 @@ constructor(private val storageService: StorageService) {
 
     @GetMapping("/")
     fun calc(): String {
+        logger.info("GET /")
         return """
             <!DOCTYPE HTML>
             <html>
@@ -64,6 +67,7 @@ constructor(private val storageService: StorageService) {
 
     @GetMapping("/calc_test")
     fun calc_test(@RequestParam(value = "expr",defaultValue = "") expr: String): String {
+        logger.info("GET /calc_test expr=$expr")
         val  calc = Calculate();
         calc.calculate(expr)
         var formulaUrl: String;

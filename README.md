@@ -42,7 +42,7 @@ API provides a number of formats in which results can be returned:
 	* Mathematica Output
 
 - Query
- * http://api.wolframalpha.com/v2/query?input="plot 2x"&appid=K28L54-3UGRQA7TL7
+ [wolframalpha](http://api.wolframalpha.com/v2/query?input="plot 2x"&appid=K28L54-3UGRQA7TL7)
 
 - Response:
 ```xml
