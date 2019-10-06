@@ -1,9 +1,7 @@
 # Description
 Run application by:
-- docker
 - Idea IDE: run button 
 - Maven: mvn spring-boot:run
-- java: java -jar target/image_demo-0.1.0.jar
 
 Open URL http://localhost:8080/ in browser
 
@@ -22,21 +20,6 @@ The result will be response as list of 2 pods.
 
 - GET /calc_test - for demo purpose only, response  html page with 2 pods 
  
-
-# Build
-./mvnw install dockerfile:build
-
-# Docker
-For start demo please run following command in console:
-
-- docker pull juhnowski/calculator
-
-- docker run -p 8080:8080 juhnowski/calculator:latest
-
-# Requirements
-- Java 1.8
-- Docker version 18.09.0
-- Maven 3.5.2
 
 # Development Requirements
 
